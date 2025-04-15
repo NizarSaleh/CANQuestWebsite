@@ -1,13 +1,10 @@
-// HomePage.jsx
+// components/homepage.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Banner images
 import cityBg from '../assets/blkwtcit.png'; // Grayscale city background
 import starBurst from '../assets/downloadNow.png'; // Star image with "Play Now!" integrated
-
-// (Halftone background ignored)
-// import comicHalftoneBlue from '../assets/comicHalftoneBlue.png';
 
 // The custom bubble image for the Purpose section
 import purposeBubble from '../assets/purposebubble.png';
@@ -29,7 +26,9 @@ function HomePage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Mobile-adjusted styles for the purpose section and bubble
+  // Mobile-adjusted styles for the purpose section and bubble.
+  // Here we set minHeight to "auto" on mobile so that the bubble expands
+  // to fit all its content.
   const purposeSectionStyle = {
     ...styles.purposeSection,
     ...(isMobile && { padding: '2rem 0' }), // no horizontal padding on mobile
@@ -39,8 +38,8 @@ function HomePage() {
     ...styles.purposeBubble,
     ...(isMobile && {
       maxWidth: '100%',
-      minHeight: '778px', // Original 400px plus an extra ~378px (~10cm)
-      padding: '3rem 0',  // Remove horizontal padding
+      minHeight: 'auto', // Let the bubble's height grow with its content
+      padding: '3rem 0',  // Adjust padding as necessary
     }),
   };
 
@@ -50,7 +49,6 @@ function HomePage() {
 
   return (
     <div style={styles.pageContainer}>
-
       {/* TOP BANNER */}
       <section style={styles.cityBanner}>
         <h1 style={styles.titleText}>CANQUEST</h1>
@@ -196,9 +194,8 @@ function TestimonyBubble({ quote, name }) {
 
 /* STYLES */
 const styles = {
-  /* Root container filling the full viewport width */
   pageContainer: {
-    width: '100%',
+    width: '100%', // Using 100% to prevent overflow on mobile
     minHeight: '100vh',
     margin: 0,
     padding: 0,
@@ -208,17 +205,15 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
   },
-
-  /* ----- TOP BANNER ----- */
   cityBanner: {
     width: '100%',
     background: `url(${cityBg}) center center / cover no-repeat`,
-    padding: '4rem 0 6rem 0', // Removed horizontal padding to reach the edges
+    padding: '4rem 0 6rem 0',
     textAlign: 'center',
     margin: 0,
   },
   titleText: {
-    fontFamily: "'Bangers', cursive", // Titles in Bangers
+    fontFamily: "'Bangers', cursive",
     margin: '0 0 1rem 0',
     fontSize: '3rem',
     color: '#fff',
@@ -241,19 +236,17 @@ const styles = {
     marginTop: '1rem',
   },
   starImage: {
-    width: '625px',        // 2.5× original size
+    width: '625px',
     maxWidth: '80vw',
     height: 'auto',
     display: 'block',
     margin: '0 auto',
   },
-
-  /* ----- PURPOSE SECTION ----- */
   purposeSection: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    padding: '2rem 0',  // Removed horizontal padding
+    padding: '2rem 0',
     boxSizing: 'border-box',
     margin: 0,
   },
@@ -285,13 +278,11 @@ const styles = {
     maxWidth: '600px',
     margin: '0.5rem auto',
   },
-
-  /* ----- TRAILER / DEMO SECTION ----- */
   trailerSection: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    padding: '2rem 0',  // Removed horizontal padding
+    padding: '2rem 0',
     boxSizing: 'border-box',
     background: 'none',
     margin: 0,
@@ -338,8 +329,6 @@ const styles = {
     height: '100%',
     border: 'none',
   },
-
-  /* ----- PANEL SECTIONS (Comic Story / Testimonies) ----- */
   panelSection: {
     width: '100%',
     maxWidth: '900px',
@@ -356,8 +345,6 @@ const styles = {
     fontStyle: 'italic',
     marginBottom: '1rem',
   },
-
-  /* ----- TESTIMONIES ----- */
   testimonyContainer: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -415,7 +402,6 @@ const styles = {
   },
 };
 
-/* ----- CAROUSEL STYLES ----- */
 const carouselStyles = {
   container: {
     position: 'relative',
