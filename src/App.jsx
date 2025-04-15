@@ -39,8 +39,7 @@ const styles = {
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
-    /* Added relative padding to allow extra spacing on mobile */
-    padding: '0 1rem',
+    // Removed horizontal padding to allow header and footer full-width bleed
   },
 };
 

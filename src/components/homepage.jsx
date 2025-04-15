@@ -1,12 +1,12 @@
 // HomePage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Banner images
 import cityBg from '../assets/blkwtcit.png'; // Grayscale city background
-import starBurst from '../assets/downloadNow.png'; // Star image (with "Play Now!" integrated)
+import starBurst from '../assets/downloadNow.png'; // Star image with "Play Now!" integrated
 
-// (Halftone background ignored as per previous instructions)
+// (Halftone background ignored)
 // import comicHalftoneBlue from '../assets/comicHalftoneBlue.png';
 
 // The custom bubble image for the Purpose section
@@ -20,8 +20,30 @@ import comicpage4 from '../assets/comicpage4.png';
 
 function HomePage() {
   const navigate = useNavigate();
-  
-  // Handler for the star button: route to "/download"
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // Update isMobile on resize.
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Mobile-adjusted styles for the purpose section and bubble
+  const purposeSectionStyle = {
+    ...styles.purposeSection,
+    ...(isMobile && { padding: '2rem 0' }), // no horizontal padding on mobile
+  };
+
+  const purposeBubbleStyleCombined = {
+    ...styles.purposeBubble,
+    ...(isMobile && {
+      maxWidth: '100%',
+      minHeight: '778px', // Original 400px plus an extra ~378px (~10cm)
+      padding: '3rem 0',  // Remove horizontal padding
+    }),
+  };
+
   const handleDownload = () => {
     navigate('/download');
   };
@@ -39,8 +61,8 @@ function HomePage() {
       </section>
 
       {/* PURPOSE SECTION */}
-      <section style={styles.purposeSection}>
-        <div style={styles.purposeBubble}>
+      <section style={purposeSectionStyle}>
+        <div style={purposeBubbleStyleCombined}>
           <h2 className="myComicHeader" style={styles.purposeHeading}>
             Purpose
           </h2>
@@ -109,8 +131,7 @@ function HomePage() {
   );
 }
 
-
-/* CAROUSEL */
+/* CAROUSEL COMPONENT */
 function ComicCarousel() {
   const images = [comicpage1, comicpage2, comicpage3, comicpage4];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -159,8 +180,7 @@ function ComicCarousel() {
   );
 }
 
-
-/* TESTIMONY BUBBLE */
+/* TESTIMONY BUBBLE COMPONENT */
 function TestimonyBubble({ quote, name }) {
   return (
     <div style={styles.testimonyWrapper}>
@@ -174,41 +194,45 @@ function TestimonyBubble({ quote, name }) {
   );
 }
 
-
 /* STYLES */
 const styles = {
+  /* Root container filling the full viewport width */
   pageContainer: {
-    width: '100%',
+    width: '100vw',
     minHeight: '100vh',
-    backgroundColor: '#8AA4CC', // Light blue background
+    margin: 0,
+    padding: 0,
+    overflowX: 'hidden',
+    backgroundColor: '#8AA4CC',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
 
-  /* ===== TOP BANNER ===== */
+  /* ----- TOP BANNER ----- */
   cityBanner: {
     width: '100%',
     background: `url(${cityBg}) center center / cover no-repeat`,
-    padding: '4rem 1rem 6rem 1rem',
+    padding: '4rem 0 6rem 0', // Removed horizontal padding to reach the edges
     textAlign: 'center',
-    position: 'relative',
+    margin: 0,
   },
   titleText: {
-    margin: '0 auto 1rem auto',
+    fontFamily: "'Bangers', cursive", // Titles in Bangers
+    margin: '0 0 1rem 0',
     fontSize: '3rem',
     color: '#fff',
     letterSpacing: '2px',
     textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
   },
   subtitleText: {
-    margin: '0 auto 2rem auto',
+    fontFamily: "'Bangers', cursive",
+    margin: '0 0 2rem 0',
     fontSize: '1.5rem',
     color: '#fff',
     letterSpacing: '1px',
     textShadow: '1px 1px 3px rgba(0,0,0,0.6)',
   },
-  // Increase star size by about 2.5×:
   starButton: {
     background: 'none',
     border: 'none',
@@ -217,22 +241,22 @@ const styles = {
     marginTop: '1rem',
   },
   starImage: {
-    width: '625px',        // 2.5 times the previous 250px
-    maxWidth: '80vw',      // Responsive constraint
+    width: '625px',        // 2.5× original size
+    maxWidth: '80vw',
     height: 'auto',
     display: 'block',
     margin: '0 auto',
   },
 
-  /* ===== PURPOSE SECTION ===== */
+  /* ----- PURPOSE SECTION ----- */
   purposeSection: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    padding: '2rem 1rem',
+    padding: '2rem 0',  // Removed horizontal padding
     boxSizing: 'border-box',
+    margin: 0,
   },
-  // Keep the bubble image but ensure the surrounding rectangle is fully transparent
   purposeBubble: {
     backgroundImage: `url(${purposeBubble})`,
     backgroundRepeat: 'no-repeat',
@@ -243,16 +267,18 @@ const styles = {
     minHeight: '400px',
     padding: '3rem 2rem',
     textAlign: 'center',
-    backgroundColor: 'transparent', // Fully transparent container
+    backgroundColor: 'transparent',
     border: 'none',
     boxShadow: 'none',
   },
   purposeHeading: {
+    fontFamily: "'Bangers', cursive",
     fontSize: '2rem',
     color: '#000',
     marginBottom: '1rem',
   },
   purposeText: {
+    fontFamily: "'Walter Turncoat', cursive",
     fontSize: '1rem',
     color: '#333',
     lineHeight: 1.6,
@@ -260,14 +286,15 @@ const styles = {
     margin: '0.5rem auto',
   },
 
-  /* ===== TRAILER / DEMO SECTION ===== */
+  /* ----- TRAILER / DEMO SECTION ----- */
   trailerSection: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    padding: '2rem 1rem',
+    padding: '2rem 0',  // Removed horizontal padding
     boxSizing: 'border-box',
-    background: 'none',  // Removed halftone background
+    background: 'none',
+    margin: 0,
   },
   trailerInner: {
     width: '100%',
@@ -279,11 +306,13 @@ const styles = {
     textAlign: 'center',
   },
   panelHeading: {
+    fontFamily: "'Bangers', cursive",
     fontSize: '2rem',
     color: '#ff0000',
     marginBottom: '1rem',
   },
   panelText: {
+    fontFamily: "'Walter Turncoat', cursive",
     fontSize: '1.1rem',
     color: '#333',
     margin: '0.5rem 0',
@@ -296,7 +325,7 @@ const styles = {
   videoWrapper: {
     position: 'relative',
     width: '100%',
-    paddingBottom: '56.25%', // 16:9 aspect ratio
+    paddingBottom: '56.25%',
     height: 0,
     overflow: 'hidden',
     backgroundColor: '#000',
@@ -310,24 +339,25 @@ const styles = {
     border: 'none',
   },
 
-  /* ===== PANEL SECTIONS ===== */
+  /* ----- PANEL SECTIONS (Comic Story / Testimonies) ----- */
   panelSection: {
     width: '100%',
     maxWidth: '900px',
     background: '#ffec00',
     border: '6px solid #000',
     boxShadow: '8px 8px 0 #000',
-    margin: '2rem auto',
+    margin: '2rem 0',
     padding: '1rem',
     textAlign: 'center',
   },
   comicSubheading: {
+    fontFamily: "'Walter Turncoat', cursive",
     fontSize: '1.2rem',
     fontStyle: 'italic',
     marginBottom: '1rem',
   },
 
-  /* ===== TESTIMONIES ===== */
+  /* ----- TESTIMONIES ----- */
   testimonyContainer: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -371,19 +401,21 @@ const styles = {
     borderTop: '16px solid #fff',
   },
   testimonyQuote: {
+    fontFamily: "'Walter Turncoat', cursive",
     fontSize: '0.9rem',
     color: '#000',
     fontStyle: 'italic',
     margin: 0,
   },
   testimonyName: {
+    fontFamily: "'Walter Turncoat', cursive",
     fontSize: '0.8rem',
     color: '#000',
     textAlign: 'center',
   },
 };
 
-/* ===== CAROUSEL STYLES ===== */
+/* ----- CAROUSEL STYLES ----- */
 const carouselStyles = {
   container: {
     position: 'relative',
