@@ -214,9 +214,7 @@ const styles = {
     width: '100%',
     background: `url(${cityBg}) no-repeat center top`,
     backgroundSize: '100% auto',
-    // Set height based on the image’s aspect ratio.
-    // For a 16:9 ratio, use 56.25vw. Adjust if your image has a different ratio.
-    height: '56.25vw',
+    minHeight: '56.25vw', // Use minHeight so container expands if needed
     textAlign: 'center',
     margin: 0,
   },
@@ -224,23 +222,23 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '0.5rem', // Adjust gap as needed between title, subtitle, and button
-    paddingTop: '1rem', // Optional: add some top padding if desired
+    gap: '0.5rem',
+    paddingTop: '1rem',
   },
   bannerTitle: {
-    maxWidth: '45%', // Scaled down image size
+    maxWidth: '45%',
     width: 'auto',
     height: 'auto',
     margin: '0 auto',
   },
   subtitleText: {
     fontFamily: "'Bangers', cursive",
-    margin: 0, // Remove extra margin
+    margin: 0,
     fontSize: '1.5rem',
     color: '#fff',
     letterSpacing: '1px',
     textShadow: '1px 1px 3px rgba(0,0,0,0.6)',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dark transparent background
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     padding: '0.5rem 1rem',
     display: 'inline-block',
   },
@@ -249,10 +247,10 @@ const styles = {
     border: 'none',
     padding: 0,
     cursor: 'pointer',
-    marginTop: '0.5rem', // Reduced margin so button is closer to subtitle
+    marginTop: '0.5rem',
   },
   starImage: {
-    width: '625px',
+    width: '450px',
     maxWidth: '80vw',
     height: 'auto',
     display: 'block',
