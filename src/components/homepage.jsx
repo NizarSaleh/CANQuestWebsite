@@ -27,36 +27,20 @@ function HomePage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Create a dynamic banner style based on device width.
-  const dynamicBannerStyle = isMobile
-    ? {
-        width: '100%',
-        // On mobile, let the container height adjust (auto)
-        height: 'auto',
-        background: `url(${cityBg}) no-repeat center`,
-        backgroundSize: 'contain',
-      }
-    : {
-        width: '100%',
-        // For a 16:9 aspect ratio, use 56.25vw for height on desktop
-        height: '56.25vw',
-        background: `url(${cityBg}) no-repeat center`,
-        backgroundSize: 'contain',
-      };
-
   // Mobile-adjusted styles for the purpose section and bubble.
-  // We set minHeight to "auto" on mobile so that the bubble expands to fit all its content.
+  // Here we set minHeight to "auto" on mobile so that the bubble expands
+  // to fit all its content.
   const purposeSectionStyle = {
     ...styles.purposeSection,
-    ...(isMobile && { padding: '2rem 0' }),
+    ...(isMobile && { padding: '2rem 0' }), // no horizontal padding on mobile
   };
 
   const purposeBubbleStyleCombined = {
     ...styles.purposeBubble,
     ...(isMobile && {
       maxWidth: '100%',
-      minHeight: 'auto',
-      padding: '3rem 0',
+      minHeight: 'auto', // Let the bubble's height grow with its content
+      padding: '3rem 0',  // Adjust padding as necessary
     }),
   };
 
@@ -67,7 +51,7 @@ function HomePage() {
   return (
     <div style={styles.pageContainer}>
       {/* TOP BANNER */}
-      <section style={{ ...styles.cityBanner, ...dynamicBannerStyle }}>
+      <section style={styles.cityBanner}>
         <div style={styles.bannerContainer}>
           <img src={bannerTitle} alt="CANQUEST" style={styles.bannerTitle} />
           <h2 style={styles.subtitleText}>
@@ -216,7 +200,7 @@ function TestimonyBubble({ quote, name }) {
 /* STYLES */
 const styles = {
   pageContainer: {
-    width: '100%',
+    width: '100%', // Prevent overflow on mobile
     minHeight: '100vh',
     margin: 0,
     padding: 0,
@@ -228,6 +212,11 @@ const styles = {
   },
   cityBanner: {
     width: '100%',
+    background: `url(${cityBg}) no-repeat center top`,
+    backgroundSize: '100% auto',
+    // Set height based on the image’s aspect ratio.
+    // For a 16:9 ratio, use 56.25vw. Adjust if your image has a different ratio.
+    height: '56.25vw',
     textAlign: 'center',
     margin: 0,
   },
@@ -235,23 +224,23 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '0.5rem',
-    paddingTop: '1rem',
+    gap: '0.5rem', // Adjust gap as needed between title, subtitle, and button
+    paddingTop: '1rem', // Optional: add some top padding if desired
   },
   bannerTitle: {
-    maxWidth: '45%',
+    maxWidth: '45%', // Scaled down image size
     width: 'auto',
     height: 'auto',
     margin: '0 auto',
   },
   subtitleText: {
     fontFamily: "'Bangers', cursive",
-    margin: 0,
+    margin: 0, // Remove extra margin
     fontSize: '1.5rem',
     color: '#fff',
     letterSpacing: '1px',
     textShadow: '1px 1px 3px rgba(0,0,0,0.6)',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dark transparent background
     padding: '0.5rem 1rem',
     display: 'inline-block',
   },
@@ -260,7 +249,7 @@ const styles = {
     border: 'none',
     padding: 0,
     cursor: 'pointer',
-    marginTop: '0.5rem',
+    marginTop: '0.5rem', // Reduced margin so button is closer to subtitle
   },
   starImage: {
     width: '625px',
