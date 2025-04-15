@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 // Banner images
 import cityBg from '../assets/blkwtcit.png'; // Grayscale city background
-import starBurst from '../assets/downloadNow.png'; // Star image with "Play Now!" integrated
+import starBurst from '../assets/playNow.png'; // Star image with "Play Now!" integrated
+import bannerTitle from '../assets/test/bannertitle.png'; // Your new banner title image
 
 // The custom bubble image for the Purpose section
 import purposeBubble from '../assets/purposebubble.png';
@@ -51,11 +52,15 @@ function HomePage() {
     <div style={styles.pageContainer}>
       {/* TOP BANNER */}
       <section style={styles.cityBanner}>
-        <h1 style={styles.titleText}>CANQUEST</h1>
-        <h2 style={styles.subtitleText}>GAMIFIED VEHICLE HACKING PLATFORM</h2>
-        <button style={styles.starButton} onClick={handleDownload}>
-          <img src={starBurst} alt="Play Now!" style={styles.starImage} />
-        </button>
+        <div style={styles.bannerContainer}>
+          <img src={bannerTitle} alt="CANQUEST" style={styles.bannerTitle} />
+          <h2 style={styles.subtitleText}>
+            GAMIFIED VEHICLE HACKING PLATFORM
+          </h2>
+          <button style={styles.starButton} onClick={handleDownload}>
+            <img src={starBurst} alt="Play Now!" style={styles.starImage} />
+          </button>
+        </div>
       </section>
 
       {/* PURPOSE SECTION */}
@@ -195,7 +200,7 @@ function TestimonyBubble({ quote, name }) {
 /* STYLES */
 const styles = {
   pageContainer: {
-    width: '100%', // Using 100% to prevent overflow on mobile
+    width: '100%', // Prevent overflow on mobile
     minHeight: '100vh',
     margin: 0,
     padding: 0,
@@ -207,33 +212,44 @@ const styles = {
   },
   cityBanner: {
     width: '100%',
-    background: `url(${cityBg}) center center / cover no-repeat`,
-    padding: '4rem 0 6rem 0',
+    background: `url(${cityBg}) no-repeat center top`,
+    backgroundSize: '100% auto',
+    // Set height based on the image’s aspect ratio.
+    // For a 16:9 ratio, use 56.25vw. Adjust if your image has a different ratio.
+    height: '56.25vw',
     textAlign: 'center',
     margin: 0,
   },
-  titleText: {
-    fontFamily: "'Bangers', cursive",
-    margin: '0 0 1rem 0',
-    fontSize: '3rem',
-    color: '#fff',
-    letterSpacing: '2px',
-    textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
+  bannerContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0.5rem', // Adjust gap as needed between title, subtitle, and button
+    paddingTop: '1rem', // Optional: add some top padding if desired
+  },
+  bannerTitle: {
+    maxWidth: '45%', // Scaled down image size
+    width: 'auto',
+    height: 'auto',
+    margin: '0 auto',
   },
   subtitleText: {
     fontFamily: "'Bangers', cursive",
-    margin: '0 0 2rem 0',
+    margin: 0, // Remove extra margin
     fontSize: '1.5rem',
     color: '#fff',
     letterSpacing: '1px',
     textShadow: '1px 1px 3px rgba(0,0,0,0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dark transparent background
+    padding: '0.5rem 1rem',
+    display: 'inline-block',
   },
   starButton: {
     background: 'none',
     border: 'none',
     padding: 0,
     cursor: 'pointer',
-    marginTop: '1rem',
+    marginTop: '0.5rem', // Reduced margin so button is closer to subtitle
   },
   starImage: {
     width: '625px',
