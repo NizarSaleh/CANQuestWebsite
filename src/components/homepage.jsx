@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Banner images
-import cityBg from '../assets/blkwtcit.png'; // grayscale city background
-import starBurst from '../assets/downloadNow.png'; // star shape image (with "Play Now!" integrated)
+import cityBg from '../assets/blkwtcit.png'; // Grayscale city background
+import starBurst from '../assets/downloadNow.png'; // Star image (with "Play Now!" integrated)
 
-// Halftone background (blue) – used only for halftone block overlay
-import comicHalftoneBlue from '../assets/comicHalftoneBlue.png';
+// (Halftone background ignored as per previous instructions)
+// import comicHalftoneBlue from '../assets/comicHalftoneBlue.png';
 
-// The custom bubble shape for the Purpose text
+// The custom bubble image for the Purpose section
 import purposeBubble from '../assets/purposebubble.png';
 
 // Carousel images
@@ -38,7 +38,7 @@ function HomePage() {
         </button>
       </section>
 
-      {/* PURPOSE BUBBLE SECTION */}
+      {/* PURPOSE SECTION */}
       <section style={styles.purposeSection}>
         <div style={styles.purposeBubble}>
           <h2 className="myComicHeader" style={styles.purposeHeading}>
@@ -135,7 +135,6 @@ function ComicCarousel() {
         alt={`Comic Page ${currentIndex + 1}`}
         style={carouselStyles.image}
       />
-      {/* Always render arrows, fade them in/out based on showArrows */}
       <button
         style={{
           ...carouselStyles.arrowLeft,
@@ -187,15 +186,13 @@ const styles = {
     alignItems: 'center',
   },
 
-  /* =============== TOP BANNER =============== */
+  /* ===== TOP BANNER ===== */
   cityBanner: {
     width: '100%',
-    // Use a background image instead of an <img> to ensure responsiveness
     background: `url(${cityBg}) center center / cover no-repeat`,
-    padding: '4rem 1rem 6rem 1rem',  // top, right, bottom, left
+    padding: '4rem 1rem 6rem 1rem',
     textAlign: 'center',
     position: 'relative',
-    // Enough padding at bottom so the star fits below text
   },
   titleText: {
     margin: '0 auto 1rem auto',
@@ -211,6 +208,7 @@ const styles = {
     letterSpacing: '1px',
     textShadow: '1px 1px 3px rgba(0,0,0,0.6)',
   },
+  // Increase star size by about 2.5×:
   starButton: {
     background: 'none',
     border: 'none',
@@ -219,14 +217,14 @@ const styles = {
     marginTop: '1rem',
   },
   starImage: {
-    width: '250px',   // Make smaller so it fits on mobile
-    maxWidth: '80vw', // Further scale down if screen is very narrow
+    width: '625px',        // 2.5 times the previous 250px
+    maxWidth: '80vw',      // Responsive constraint
     height: 'auto',
     display: 'block',
     margin: '0 auto',
   },
 
-  /* =============== PURPOSE SECTION =============== */
+  /* ===== PURPOSE SECTION ===== */
   purposeSection: {
     width: '100%',
     display: 'flex',
@@ -234,7 +232,7 @@ const styles = {
     padding: '2rem 1rem',
     boxSizing: 'border-box',
   },
-  // Instead of absolute positioning a huge bubble, place it in normal flow
+  // Keep the bubble image but ensure the surrounding rectangle is fully transparent
   purposeBubble: {
     backgroundImage: `url(${purposeBubble})`,
     backgroundRepeat: 'no-repeat',
@@ -242,14 +240,12 @@ const styles = {
     backgroundSize: 'contain',
     width: '100%',
     maxWidth: '700px',
-    // Ensure it grows in height to accommodate content:
     minHeight: '400px',
     padding: '3rem 2rem',
     textAlign: 'center',
-    // Extra styles to ensure text is readable
-    backgroundColor: '#fff', // or transparent if you want
-    border: '4px solid #000',
-    boxShadow: '8px 8px 0 #000',
+    backgroundColor: 'transparent', // Fully transparent container
+    border: 'none',
+    boxShadow: 'none',
   },
   purposeHeading: {
     fontSize: '2rem',
@@ -264,17 +260,14 @@ const styles = {
     margin: '0.5rem auto',
   },
 
-  /* =============== TRAILER SECTION =============== */
+  /* ===== TRAILER / DEMO SECTION ===== */
   trailerSection: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
     padding: '2rem 1rem',
     boxSizing: 'border-box',
-    backgroundImage: `url(${comicHalftoneBlue})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
+    background: 'none',  // Removed halftone background
   },
   trailerInner: {
     width: '100%',
@@ -317,7 +310,7 @@ const styles = {
     border: 'none',
   },
 
-  /* =============== PANEL SECTIONS =============== */
+  /* ===== PANEL SECTIONS ===== */
   panelSection: {
     width: '100%',
     maxWidth: '900px',
@@ -334,7 +327,7 @@ const styles = {
     marginBottom: '1rem',
   },
 
-  /* =============== TESTIMONIES =============== */
+  /* ===== TESTIMONIES ===== */
   testimonyContainer: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -390,7 +383,7 @@ const styles = {
   },
 };
 
-/* CAROUSEL STYLES */
+/* ===== CAROUSEL STYLES ===== */
 const carouselStyles = {
   container: {
     position: 'relative',
