@@ -198,7 +198,7 @@ function TestimonyBubble({ quote, name }) {
 const styles = {
   /* Root container filling the full viewport width */
   pageContainer: {
-    width: '100vw',
+    width: '100%',
     minHeight: '100vh',
     margin: 0,
     padding: 0,
