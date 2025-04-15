@@ -252,7 +252,7 @@ const styles = {
   },
   meetTeamTitle: {
     margin: 0,
-    fontSize: '4rem',
+    fontSize: '3.5rem',
     color: '#000',
   },
   photoContainer: {
