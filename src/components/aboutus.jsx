@@ -1,5 +1,5 @@
 // components/AboutUs.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import groupPhoto from '../assets/group.jpg';
 import kevinPhoto from '../assets/kevin.jpg';
 import shamsPhoto from '../assets/shams.jpg';
@@ -9,24 +9,84 @@ import nizarPhoto from '../assets/nizar.jpg';
 import exclamationPng from '../assets/exclamation.png';
 
 function AboutUs() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  // Merge mobile overrides into the base styles
+  const mergedStyles = {
+    ...styles,
+    pageContainer: {
+      ...styles.pageContainer,
+      padding: isMobile ? '1rem' : '2rem',
+    },
+    groupPhotoSection: {
+      ...styles.groupPhotoSection,
+      maxWidth: isMobile ? '100%' : '1200px',
+      margin: isMobile ? '1rem auto' : '2rem auto',
+    },
+    memberRow: {
+      ...styles.memberRow,
+      flexDirection: isMobile ? 'column' : 'row',
+      alignItems: isMobile ? 'center' : 'flex-start',
+      margin: isMobile ? '1rem auto' : '2rem auto',
+      width: isMobile ? '90%' : '100%',
+    },
+    memberPhoto: {
+      ...styles.memberPhoto,
+      width: isMobile ? '90%' : styles.memberPhoto.width,
+      height: isMobile ? 'auto' : styles.memberPhoto.height,
+      marginRight: isMobile ? 0 : styles.memberPhoto.marginRight,
+      marginBottom: isMobile ? '1rem' : 0,
+    },
+    infoSection: {
+      ...styles.infoSection,
+      width: isMobile ? '90%' : styles.infoSection.width,
+      alignItems: isMobile ? 'center' : 'flex-start',
+      textAlign: isMobile ? 'center' : 'left',
+    },
+    descriptionBox: {
+      ...styles.descriptionBox,
+      width: isMobile ? '100%' : styles.descriptionBox.width,
+      height: isMobile ? 'auto' : styles.descriptionBox.height,
+      padding: isMobile ? '1rem' : styles.descriptionBox.padding,
+      marginTop: isMobile ? '0.5rem' : 0,
+    },
+    acknowledgmentPanel: {
+      ...styles.acknowledgmentPanel,
+      width: isMobile ? '90%' : styles.acknowledgmentPanel.width,
+      margin: isMobile ? '1rem auto' : styles.acknowledgmentPanel.margin,
+    },
+  };
+
   return (
-    <div style={styles.pageContainer}>
+    <div style={mergedStyles.pageContainer}>
       {/* Group Photo Section (with "MEET THE TEAM!" Box) */}
-      <div style={styles.groupPhotoSection}>
-        <div style={styles.meetTeamPanel}>
-          <h1 className= "myComicHeader" style={styles.meetTeamTitle}>MEET THE TEAM!</h1>
+      <div style={mergedStyles.groupPhotoSection}>
+        <div style={mergedStyles.meetTeamPanel}>
+          <h1 className="myComicHeader" style={mergedStyles.meetTeamTitle}>
+            MEET THE TEAM!
+          </h1>
         </div>
-        <div style={styles.photoContainer}>
-          <img src={groupPhoto} alt="Our Team" style={styles.groupPhoto} />
-          <img src={exclamationPng} alt="!!!" style={styles.exclamationMark} />
+        <div style={mergedStyles.photoContainer}>
+          <img src={groupPhoto} alt="Our Team" style={mergedStyles.groupPhoto} />
+          <img
+            src={exclamationPng}
+            alt="!!!"
+            style={mergedStyles.exclamationMark}
+          />
         </div>
       </div>
 
       {/* Member Row: Kevin */}
-      <div style={styles.memberRow}>
-        <img src={kevinPhoto} alt="Kevin" style={styles.memberPhoto} />
-        <div style={styles.infoSection}>
-          <h2 style={styles.memberName}>
+      <div style={mergedStyles.memberRow}>
+        <img src={kevinPhoto} alt="Kevin" style={mergedStyles.memberPhoto} />
+        <div style={mergedStyles.infoSection}>
+          <h2 style={mergedStyles.memberName}>
             <a
               href="https://www.linkedin.com/in/kevin-mitchell-81b56829/"
               target="_blank"
@@ -36,8 +96,8 @@ function AboutUs() {
               KEVIN MITCHEL (CLIENT)
             </a>
           </h2>
-          <div style={styles.descriptionBox}>
-            <p style={styles.descriptionText}>
+          <div style={mergedStyles.descriptionBox}>
+            <p style={mergedStyles.descriptionText}>
               He is the best most epic client ever!
             </p>
           </div>
@@ -45,10 +105,10 @@ function AboutUs() {
       </div>
 
       {/* Member Row: Shams */}
-      <div style={styles.memberRow}>
-        <img src={shamsPhoto} alt="Shams" style={styles.memberPhoto} />
-        <div style={styles.infoSection}>
-          <h2 style={styles.memberName}>
+      <div style={mergedStyles.memberRow}>
+        <img src={shamsPhoto} alt="Shams" style={mergedStyles.memberPhoto} />
+        <div style={mergedStyles.infoSection}>
+          <h2 style={mergedStyles.memberName}>
             <a
               href="https://www.linkedin.com/in/shams-ahson/"
               target="_blank"
@@ -58,8 +118,8 @@ function AboutUs() {
               SHAMS AHSON
             </a>
           </h2>
-          <div style={styles.descriptionBox}>
-            <p style={styles.descriptionText}>
+          <div style={mergedStyles.descriptionBox}>
+            <p style={mergedStyles.descriptionText}>
               Cybersecurity expert and bestest hacker to have ever lived.
             </p>
           </div>
@@ -67,10 +127,10 @@ function AboutUs() {
       </div>
 
       {/* Member Row: Ali */}
-      <div style={styles.memberRow}>
-        <img src={aliPhoto} alt="Ali" style={styles.memberPhoto} />
-        <div style={styles.infoSection}>
-          <h2 style={styles.memberName}>
+      <div style={mergedStyles.memberRow}>
+        <img src={aliPhoto} alt="Ali" style={mergedStyles.memberPhoto} />
+        <div style={mergedStyles.infoSection}>
+          <h2 style={mergedStyles.memberName}>
             <a
               href="https://www.linkedin.com/in/ali-a-chowdhury/"
               target="_blank"
@@ -80,8 +140,8 @@ function AboutUs() {
               ALI CHOWDHURY
             </a>
           </h2>
-          <div style={styles.descriptionBox}>
-            <p style={styles.descriptionText}>
+          <div style={mergedStyles.descriptionBox}>
+            <p style={mergedStyles.descriptionText}>
               An expert in system design and a creative force behind our projects.
             </p>
           </div>
@@ -89,10 +149,10 @@ function AboutUs() {
       </div>
 
       {/* Member Row: Souad */}
-      <div style={styles.memberRow}>
-        <img src={souadPhoto} alt="Souad" style={styles.memberPhoto} />
-        <div style={styles.infoSection}>
-          <h2 style={styles.memberName}>
+      <div style={mergedStyles.memberRow}>
+        <img src={souadPhoto} alt="Souad" style={mergedStyles.memberPhoto} />
+        <div style={mergedStyles.infoSection}>
+          <h2 style={mergedStyles.memberName}>
             <a
               href="https://www.linkedin.com/in/souad-omar-0105aa217/"
               target="_blank"
@@ -102,8 +162,8 @@ function AboutUs() {
               SOUAD OMAR
             </a>
           </h2>
-          <div style={styles.descriptionBox}>
-            <p style={styles.descriptionText}>
+          <div style={mergedStyles.descriptionBox}>
+            <p style={mergedStyles.descriptionText}>
               A brilliant strategist ensuring our solutions are both effective and secure.
             </p>
           </div>
@@ -111,10 +171,10 @@ function AboutUs() {
       </div>
 
       {/* Member Row: Nizar */}
-      <div style={styles.memberRow}>
-        <img src={nizarPhoto} alt="Nizar" style={styles.memberPhoto} />
-        <div style={styles.infoSection}>
-          <h2 style={styles.memberName}>
+      <div style={mergedStyles.memberRow}>
+        <img src={nizarPhoto} alt="Nizar" style={mergedStyles.memberPhoto} />
+        <div style={mergedStyles.infoSection}>
+          <h2 style={mergedStyles.memberName}>
             <a
               href="https://www.linkedin.com/in/nizarsaleh"
               target="_blank"
@@ -124,8 +184,8 @@ function AboutUs() {
               NIZAR SALEH
             </a>
           </h2>
-          <div style={styles.descriptionBox}>
-            <p style={styles.descriptionText}>
+          <div style={mergedStyles.descriptionBox}>
+            <p style={mergedStyles.descriptionText}>
               A versatile programmer with a passion for digital innovation and security.
             </p>
           </div>
@@ -133,28 +193,28 @@ function AboutUs() {
       </div>
 
       {/* Additional Acknowledgments */}
-      <div style={styles.acknowledgmentPanel}>
-        <h3 style={styles.ackSubHeading}>ETAS Collaboration</h3>
-        <p style={styles.ackPanelText}>
+      <div style={mergedStyles.acknowledgmentPanel}>
+        <h3 style={mergedStyles.ackSubHeading}>ETAS Collaboration</h3>
+        <p style={mergedStyles.ackPanelText}>
           We’re proud to collaborate with ETAS, a leader in embedded solutions for the automotive industry.
           Their guidance helps make CANQUEST’s hacking features realistic.
         </p>
       </div>
 
-      <div style={styles.acknowledgmentPanel}>
-        <h3 style={styles.ackSubHeading}>Senior Design Faculty</h3>
-        <p style={styles.ackPanelText}>
+      <div style={mergedStyles.acknowledgmentPanel}>
+        <h3 style={mergedStyles.ackSubHeading}>Senior Design Faculty</h3>
+        <p style={mergedStyles.ackPanelText}>
           Special thanks to the University of Michigan-Dearborn CECS Senior Design faculty for their mentorship and support.
         </p>
       </div>
 
-      <div style={styles.acknowledgmentPanel}>
-        <h3 style={styles.ackSubHeading}>Contact Us</h3>
-        <p style={styles.ackPanelText}>
+      <div style={mergedStyles.acknowledgmentPanel}>
+        <h3 style={mergedStyles.ackSubHeading}>Contact Us</h3>
+        <p style={mergedStyles.ackPanelText}>
           <strong>Email:</strong> canquestgame@gmail.com <br />
           <strong>GitHub:</strong> github.com/CANQUEST
         </p>
-        <p style={styles.ackPanelText}>
+        <p style={mergedStyles.ackPanelText}>
           We are open source! Feel free to contribute or explore the repo for more details.
         </p>
       </div>
@@ -172,7 +232,7 @@ const styles = {
     backgroundColor: '#8AA4CC',
   },
 
-  // Group photo section at the top
+  // Group Photo Section (with "MEET THE TEAM!" Box)
   groupPhotoSection: {
     width: '100%',
     maxWidth: '1200px',
@@ -194,7 +254,6 @@ const styles = {
     margin: 0,
     fontSize: '4rem',
     color: '#000',
-    
   },
   photoContainer: {
     position: 'relative',
@@ -217,7 +276,7 @@ const styles = {
     zIndex: 2,
   },
 
-  // Member row: 1200px wide container, left-aligned with group photo
+  // Member Row
   memberRow: {
     display: 'flex',
     alignItems: 'flex-start',
@@ -227,7 +286,7 @@ const styles = {
     maxWidth: '1200px',
   },
 
-  // Member photo style
+  // Member Photo
   memberPhoto: {
     width: '300px',
     height: '300px',
@@ -237,28 +296,28 @@ const styles = {
     marginRight: '1rem',
   },
 
-  // Info Section for member details: now fixed at 900px to match 300+900 = 1200px total
+  // Info Section for member details
   infoSection: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    width: '900px', // Fixed width for consistent alignment
+    width: '900px',
   },
   memberName: {
     fontSize: '2rem',
     color: '#000',
     fontWeight: 'bold',
-    margin: '0 0 0.5cm 0', // 0.5 cm gap below the name
+    margin: '0 0 0.5cm 0',
     textTransform: 'uppercase',
   },
 
-  // Description box: occupies full width of the infoSection (900px) with a fixed height
+  // Description Box
   descriptionBox: {
     backgroundColor: '#ffec00',
     border: '4px solid #000',
     padding: '1rem',
-    width: '100%', // 100% of 900px equals 900px
-    height: '245px', // Fixed height for the description box
+    width: '100%',
+    height: '245px',
     boxShadow: '4px 4px 0 #000',
   },
   descriptionText: {
@@ -267,15 +326,15 @@ const styles = {
     color: '#000',
   },
 
-  // Additional acknowledgment panels: set to 900px wide and left-aligned at 300px
+  // Acknowledgment Panels
   acknowledgmentPanel: {
     width: '1200px',
-    margin: '0rem 0 1rem 8rem', // 300px left margin aligns with member info sections
+    margin: '0rem 0 1rem 8rem',
     border: '8px solid #000',
     boxShadow: '8px 8px 0 #000',
     padding: '1rem',
     textAlign: 'center',
-    backgroundColor: '#ffec00', // Bronze background
+    backgroundColor: '#ffec00',
   },
   ackSubHeading: {
     fontSize: '2rem',
