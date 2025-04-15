@@ -1,13 +1,12 @@
-// components/HomePage.jsx
-
+// HomePage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Banner images
 import cityBg from '../assets/blkwtcit.png'; // grayscale city background
-import starBurst from '../assets/playNow.png'; // star shape image (with "Download Now" integrated)
+import starBurst from '../assets/downloadNow.png'; // star shape image (with "Play Now!" integrated)
 
-// Halftone background (blue) – used only for the halftone block overlay
+// Halftone background (blue) – used only for halftone block overlay
 import comicHalftoneBlue from '../assets/comicHalftoneBlue.png';
 
 // The custom bubble shape for the Purpose text
@@ -21,7 +20,7 @@ import comicpage4 from '../assets/comicpage4.png';
 
 function HomePage() {
   const navigate = useNavigate();
-
+  
   // Handler for the star button: route to "/download"
   const handleDownload = () => {
     navigate('/download');
@@ -29,89 +28,72 @@ function HomePage() {
 
   return (
     <div style={styles.pageContainer}>
-      {/* TOP BANNER (City Banner) */}
-      <section style={styles.cityBanner}>
-        <img src={cityBg} alt="City Background" style={styles.cityBackground} />
 
+      {/* TOP BANNER */}
+      <section style={styles.cityBanner}>
         <h1 style={styles.titleText}>CANQUEST</h1>
         <h2 style={styles.subtitleText}>GAMIFIED VEHICLE HACKING PLATFORM</h2>
-
-        <div style={styles.starContainer}>
-          <button style={styles.downloadButton} onClick={handleDownload}>
-            <img src={starBurst} alt="Play Now!" style={styles.starImage} />
-          </button>
-        </div>
+        <button style={styles.starButton} onClick={handleDownload}>
+          <img src={starBurst} alt="Play Now!" style={styles.starImage} />
+        </button>
       </section>
 
-      {/* HALFTONE BLOCK: Full-width, 1200px tall with overlay */}
-      <div style={styles.halftoneBlock}>
-        <div style={styles.halftoneOverlay}></div>
-
-        {/* PURPOSE BUBBLE placed on top of the halftone overlay */}
+      {/* PURPOSE BUBBLE SECTION */}
+      <section style={styles.purposeSection}>
         <div style={styles.purposeBubble}>
           <h2 className="myComicHeader" style={styles.purposeHeading}>
             Purpose
           </h2>
           <p style={styles.purposeText}>
-            The goal of CanQuest is to create an open-source, gamified platform that
-            helps users of all skill levels learn about automotive cybersecurity. The
-            platform simulates a virtual vehicle environment with real-world
-            vulnerabilities and a series of capture-the-flag (CTF) challenges. By
-            interacting with a custom CAN bus and UDS server, players develop their
+            The goal of CANQuest is to create an open-source, gamified platform 
+            that helps users of all skill levels learn about automotive cybersecurity. 
+            The platform simulates a virtual vehicle environment with real-world 
+            vulnerabilities and a series of Capture-the-Flag (CTF) challenges. By 
+            working with a custom CAN bus and UDS server, players develop their 
             penetration testing skills in a realistic, hands-on way.
           </p>
           <p style={styles.purposeText}>
-            In addition to playing the game, CanQuest encourages the community to
-            contribute by creating new levels and vulnerabilities. This documentation
-            is designed to help developers get started with the Unreal Engine project,
-            clone the repository, and build their own custom CTF challenges. By
-            open-sourcing CanQuest, we aim to promote technical skill development,
-            knowledge sharing, and innovation within the automotive security space.
+            In addition to playing the game, CANQuest encourages the community to 
+            contribute by creating new levels and vulnerabilities...
           </p>
         </div>
+      </section>
 
-        {/* TRAILER / DEMO SECTION
-            Positioned absolutely so that it sits under the bubble (zIndex=2) yet
-            above the halftone (zIndex=1). */}
-        <section style={styles.trailerSection}>
-          <div style={styles.trailerInner}>
-            <h2 className="myComicHeader" style={styles.panelHeading}>
-              Trailer / Demo
-            </h2>
-            <p style={styles.panelText}>
-              Check out our quick trailer to see CANQUEST in action:
-            </p>
-            <div style={styles.videoContainer}>
-              <div style={styles.videoWrapper}>
-                <iframe
-                  style={styles.responsiveIframe}
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  title="CANQUEST Trailer"
-                  frameBorder="0"
-                  allowFullScreen
-                ></iframe>
-              </div>
+      {/* TRAILER / DEMO SECTION */}
+      <section style={styles.trailerSection}>
+        <div style={styles.trailerInner}>
+          <h2 className="myComicHeader" style={styles.panelHeading}>Trailer / Demo</h2>
+          <p style={styles.panelText}>
+            Check out our quick trailer to see CANQUEST in action:
+          </p>
+          <div style={styles.videoContainer}>
+            <div style={styles.videoWrapper}>
+              <iframe
+                style={styles.responsiveIframe}
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="CANQUEST Trailer"
+                frameBorder="0"
+                allowFullScreen
+              ></iframe>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
 
       {/* COMIC BOOK STORY / CAROUSEL SECTION */}
-      <section style={{ ...styles.panelSection, marginTop: '2cm' }}>
+      <section style={styles.panelSection}>
         <h2 className="myComicHeader" style={styles.panelHeading}>
           Comic Book Story
         </h2>
         <p style={styles.comicSubheading}>
-          Learn The Story Behind CanQuest
+          Learn The Story Behind CANQuest
         </p>
         <ComicCarousel />
       </section>
 
       {/* TESTIMONIES SECTION */}
       <section style={styles.panelSection}>
-        <h2 className="myComicHeader" style={styles.panelHeading}>
-          TESTIMONIES
-        </h2>
+        <h2 className="myComicHeader" style={styles.panelHeading}>TESTIMONIES</h2>
         <div style={styles.testimonyContainer}>
           <TestimonyBubble
             quote="PEOPLE OF ALL AGES [CAN] LEARN BASICS IN A FUN, ENGAGING AND GAMIFIED MANNER"
@@ -126,6 +108,7 @@ function HomePage() {
     </div>
   );
 }
+
 
 /* CAROUSEL */
 function ComicCarousel() {
@@ -152,7 +135,7 @@ function ComicCarousel() {
         alt={`Comic Page ${currentIndex + 1}`}
         style={carouselStyles.image}
       />
-      {/* Always render arrows, but adjust their opacity for seamless fading */}
+      {/* Always render arrows, fade them in/out based on showArrows */}
       <button
         style={{
           ...carouselStyles.arrowLeft,
@@ -177,6 +160,7 @@ function ComicCarousel() {
   );
 }
 
+
 /* TESTIMONY BUBBLE */
 function TestimonyBubble({ quote, name }) {
   return (
@@ -191,194 +175,187 @@ function TestimonyBubble({ quote, name }) {
   );
 }
 
+
 /* STYLES */
 const styles = {
   pageContainer: {
     width: '100%',
     minHeight: '100vh',
-    backgroundColor: '#8AA4CC', // Blue background
-    padding: 0,
-    margin: 0,
+    backgroundColor: '#8AA4CC', // Light blue background
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 
-  // --- TOP CITY BANNER ---
+  /* =============== TOP BANNER =============== */
   cityBanner: {
+    width: '100%',
+    // Use a background image instead of an <img> to ensure responsiveness
+    background: `url(${cityBg}) center center / cover no-repeat`,
+    padding: '4rem 1rem 6rem 1rem',  // top, right, bottom, left
+    textAlign: 'center',
     position: 'relative',
-    width: '100%',
-    height: '450px',
-    overflow: 'hidden',
-    marginBottom: 0,
-    borderBottom: '6px solid #000',
-  },
-  cityBackground: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
+    // Enough padding at bottom so the star fits below text
   },
   titleText: {
-    position: 'absolute',
-    top: '20%',
-    left: '50%',
-    transform: 'translateX(-50%)',
+    margin: '0 auto 1rem auto',
+    fontSize: '3rem',
     color: '#fff',
-    fontSize: '4rem',
-    textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
-    margin: 0,
     letterSpacing: '2px',
+    textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
   },
   subtitleText: {
-    position: 'absolute',
-    top: '40%',
-    left: '50%',
-    transform: 'translateX(-50%)',
+    margin: '0 auto 2rem auto',
+    fontSize: '1.5rem',
     color: '#fff',
-    fontSize: '1.8rem',
-    textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
-    margin: 0,
     letterSpacing: '1px',
+    textShadow: '1px 1px 3px rgba(0,0,0,0.6)',
   },
-  starContainer: {
-    position: 'absolute',
-    bottom: '-3cm',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: '450px',
-    height: '450px',
-  },
-  downloadButton: {
+  starButton: {
     background: 'none',
     border: 'none',
     padding: 0,
     cursor: 'pointer',
+    marginTop: '1rem',
   },
   starImage: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain',
+    width: '250px',   // Make smaller so it fits on mobile
+    maxWidth: '80vw', // Further scale down if screen is very narrow
+    height: 'auto',
+    display: 'block',
+    margin: '0 auto',
   },
 
-  // --- HALFTONE BLOCK ---
-  halftoneBlock: {
+  /* =============== PURPOSE SECTION =============== */
+  purposeSection: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '2rem 1rem',
+    boxSizing: 'border-box',
+  },
+  // Instead of absolute positioning a huge bubble, place it in normal flow
+  purposeBubble: {
+    backgroundImage: `url(${purposeBubble})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center top',
+    backgroundSize: 'contain',
+    width: '100%',
+    maxWidth: '700px',
+    // Ensure it grows in height to accommodate content:
+    minHeight: '400px',
+    padding: '3rem 2rem',
+    textAlign: 'center',
+    // Extra styles to ensure text is readable
+    backgroundColor: '#fff', // or transparent if you want
+    border: '4px solid #000',
+    boxShadow: '8px 8px 0 #000',
+  },
+  purposeHeading: {
+    fontSize: '2rem',
+    color: '#000',
+    marginBottom: '1rem',
+  },
+  purposeText: {
+    fontSize: '1rem',
+    color: '#333',
+    lineHeight: 1.6,
+    maxWidth: '600px',
+    margin: '0.5rem auto',
+  },
+
+  /* =============== TRAILER SECTION =============== */
+  trailerSection: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '2rem 1rem',
+    boxSizing: 'border-box',
+    backgroundImage: `url(${comicHalftoneBlue})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  },
+  trailerInner: {
+    width: '100%',
+    maxWidth: '900px',
+    background: '#ffec00',
+    border: '6px solid #000',
+    boxShadow: '8px 8px 0 #000',
+    padding: '1rem',
+    textAlign: 'center',
+  },
+  panelHeading: {
+    fontSize: '2rem',
+    color: '#ff0000',
+    marginBottom: '1rem',
+  },
+  panelText: {
+    fontSize: '1.1rem',
+    color: '#333',
+    margin: '0.5rem 0',
+  },
+  videoContainer: {
+    width: '100%',
+    maxWidth: '600px',
+    margin: '1rem auto',
+  },
+  videoWrapper: {
     position: 'relative',
     width: '100%',
-    height: '1200px', // Adjust as needed
-    marginBottom: 0,
+    paddingBottom: '56.25%', // 16:9 aspect ratio
+    height: 0,
+    overflow: 'hidden',
+    backgroundColor: '#000',
   },
-  halftoneOverlay: {
+  responsiveIframe: {
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundImage: `url(${comicHalftoneBlue})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    opacity: 0.4,
-    zIndex: 1, // behind bubble & trailer
+    border: 'none',
   },
 
-  // PURPOSE BUBBLE
-  purposeBubble: {
-    position: 'absolute',
-    top: '50px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: '1000px',
-    minHeight: '2500px',
-    backgroundImage: `url(${purposeBubble})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'contain',
-    padding: '2rem',
-    textAlign: 'center',
-    zIndex: 3, // ensures bubble is above the trailer
-  },
-  purposeHeading: {
-    fontSize: '2.5rem',
-    margin: '1rem 0 1rem 0',
-    color: '#000',
-  },
-  purposeText: {
-    fontSize: '1.1rem',
-    color: '#333',
-    fontFamily: "'Ubuntu', sans-serif",
-    margin: '0 auto 1rem auto',
-    maxWidth: '600px',
-    lineHeight: 1.6,
-  },
-
-  // TRAILER SECTION (inside halftoneBlock, absolutely positioned below bubble)
-  trailerSection: {
-    position: 'absolute',
-    top: '650px', // Adjust as needed for vertical spacing
-    left: '50%',
-    transform: 'translateX(-50%) skewX(-20deg)',
-    zIndex: 2, // below bubble (zIndex:3), above halftone (zIndex:1)
-    background: '#ffec00',
-    border: '6px solid #000',
-    boxShadow: '8px 8px 0 #000',
-    padding: '1rem',
-    width: '70%',
-    boxSizing: 'border-box', // Ensure padding is contained
-  },
-  trailerInner: {
-    transform: 'skewX(20deg)', // Reverse the outer skew
-    padding: '0 6rem', // Increase left/right padding
-  },
-
-  // --- STANDARD PANEL SECTIONS (Comic Story, Testimonies) ---
+  /* =============== PANEL SECTIONS =============== */
   panelSection: {
+    width: '100%',
+    maxWidth: '900px',
     background: '#ffec00',
     border: '6px solid #000',
-    margin: '1rem auto',
-    padding: '1rem',
-    maxWidth: '900px',
     boxShadow: '8px 8px 0 #000',
-  },
-  panelHeading: {
-    fontSize: '2rem',
-    marginBottom: '1rem',
-    color: '#ff0000',
+    margin: '2rem auto',
+    padding: '1rem',
     textAlign: 'center',
   },
   comicSubheading: {
     fontSize: '1.2rem',
     fontStyle: 'italic',
-    textAlign: 'center',
     marginBottom: '1rem',
   },
-  panelText: {
-    fontSize: '1.2rem',
-    color: '#333',
-    fontFamily: "'Ubuntu', sans-serif",
-    margin: '0.5rem 0',
-  },
 
-  // --- TESTIMONIES ---
+  /* =============== TESTIMONIES =============== */
   testimonyContainer: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
     gap: '2rem',
+    marginTop: '1rem',
   },
   testimonyWrapper: {
+    width: '300px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '300px',
-    textAlign: 'center',
   },
   speechBubble: {
     position: 'relative',
-    width: '100%',
     background: '#fff',
     border: '4px solid #000',
     padding: '1rem',
     boxSizing: 'border-box',
     height: '120px',
+    marginBottom: '0.5rem',
   },
   bubbleTailOuter: {
     position: 'absolute',
@@ -401,46 +378,24 @@ const styles = {
     borderTop: '16px solid #fff',
   },
   testimonyQuote: {
-    fontSize: '1rem',
+    fontSize: '0.9rem',
     color: '#000',
-    fontFamily: "'Ubuntu', sans-serif",
     fontStyle: 'italic',
-    margin: '0.5rem 0',
+    margin: 0,
   },
   testimonyName: {
-    fontSize: '0.9rem',
-    fontFamily: "'Ubuntu', sans-serif",
+    fontSize: '0.8rem',
     color: '#000',
     textAlign: 'center',
-    marginTop: '0.5cm',
-  },
-
-  // --- VIDEO ---
-  videoContainer: {
-    width: '100%',
-    maxWidth: '800px',
-    margin: '0 auto',
-  },
-  videoWrapper: {
-    position: 'relative',
-    width: '100%',
-    paddingBottom: '56.25%', // 16:9 aspect ratio
-    height: 0,
-    overflow: 'hidden',
-  },
-  responsiveIframe: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
   },
 };
 
+/* CAROUSEL STYLES */
 const carouselStyles = {
   container: {
     position: 'relative',
-    width: '70%',
+    width: '100%',
+    maxWidth: '700px',
     margin: '0 auto',
     overflow: 'hidden',
     border: '4px solid #000',
